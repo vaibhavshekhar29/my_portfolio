@@ -592,9 +592,27 @@ export default function Portfolio() {
         input:focus, textarea:focus { border-color: #818CF850; }
         input::placeholder, textarea::placeholder { color: #475569; }
 
+        .about-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+          gap: 60px;
+          align-items: center;
+        }
+
+        .contact-two-col {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+
         @media (max-width: 768px) {
           .hamburger { display: block; }
           .desktop-nav { display: none !important; }
+
+          .about-grid { grid-template-columns: 1fr; gap: 32px; }
+          .contact-two-col { grid-template-columns: 1fr; }
+
+          .stat-card { padding: 22px 14px; }
         }
       `}</style>
 
@@ -751,10 +769,19 @@ export default function Portfolio() {
 
       {/* ─── ABOUT ─── */}
       <Section id="about">
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "100px 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.5fr)", gap: 60, alignItems: "center" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(64px, 10vw, 100px) 16px" }}>
+          <div className="about-grid">
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-              <div className="photo-glow" style={{ width: 320, height: 400, borderRadius: 24, overflow: "hidden", position: "relative" }}>
+              <div
+                className="photo-glow"
+                style={{
+                  width: "min(320px, 88vw)",
+                  aspectRatio: "4 / 5",
+                  borderRadius: 24,
+                  overflow: "hidden",
+                  position: "relative",
+                }}
+              >
                 <img src={PHOTO} alt="Vaibhav Shekhar" style={{
                   width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top",
                   borderRadius: 20, display: "block",
@@ -834,7 +861,7 @@ export default function Portfolio() {
             <div className="section-label">// Skills & Expertise</div>
             <h2 className="section-title">Tools & technologies I work with</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 28 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: 28 }}>
             {Object.entries(skills).map(([category, items], catIdx) => (
               <div key={category} className="glass-card">
                 {/* Category SVG illustration */}
@@ -1236,7 +1263,7 @@ export default function Portfolio() {
             Open to exciting opportunities in Data Engineering, Software Engineering, and building scalable systems. Let's connect.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 40 }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div className="contact-two-col">
               <input type="text" placeholder="Your Name" />
               <input type="email" placeholder="Your Email" />
             </div>
