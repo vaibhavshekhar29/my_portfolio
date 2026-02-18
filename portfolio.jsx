@@ -518,13 +518,27 @@ export default function Portfolio() {
         .stat-card {
           text-align: center; padding: 32px 20px;
         }
+
+        /* Stats: apply gradient to the actual text node (Counter renders a <span>) */
         .stat-value {
-          font-size: 42px; font-weight: 800; line-height: 1;
-          background: linear-gradient(135deg, #818CF8, #6EE7B7);
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-          background-clip: text;
+          font-size: clamp(32px, 6vw, 42px);
+          font-weight: 800;
+          line-height: 1;
+          color: #E2E8F0; /* readable fallback */
         }
-        .stat-label { font-size: 13px; color: #64748B; margin-top: 8px; font-weight: 500; }
+        .stat-value > span {
+          display: inline-block;
+          color: #E2E8F0; /* fallback if gradient text isn't supported */
+        }
+        @supports (-webkit-background-clip: text) {
+          .stat-value > span {
+            background: linear-gradient(135deg, #818CF8, #6EE7B7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+
+        .stat-label { font-size: 13px; color: #94A3B8; margin-top: 8px; font-weight: 500; }
 
         .tech-node {
           display: inline-flex; align-items: center; justify-content: center;
